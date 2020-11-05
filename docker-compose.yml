@@ -44,20 +44,10 @@ services:
     networks:
       - private
     environment:
-      - NODE_TLS_REJECT_UNAUTHORIZED=0
-      - EXPRESS_PORT=8181
-      - ST2_HOSTNAME=localhost
-      - ST2_API=https://localhost/api
-      - ST2_API_KEY=<masked>
-      - ST2_AUTH_URL=https://localhost/auth
-      - ST2_STREAM_URL=https://localhost/stream
-      - ST2_WEBUI_URL=https://localhost
-      - ST2_ROUTE=chatops
-      - HUBOT_LOG_LEVEL=debug
-      - HUBOT_NAME=hubot
-      - HUBOT_ALIAS=botter
-      - HUBOT_ADAPTER=slack
-      - HUBOT_SLACK_TOKEN=xoxb-1454377019200-1482889937617-wj8AuLV3gPsdg3MXjfkgaUh2
+      ST2_AUTH_URL: ${ST2_AUTH_URL:-http://st2auth:9100/}
+      ST2_API_URL: ${ST2_API_URL:-http://st2api:9101/}
+      ST2_STREAM_URL: ${ST2_STREAM_URL:-http://st2stream:9102/}
+    command: /chatops.sh
   st2api:
     image: ${ST2_IMAGE_REPO:-stackstorm/}st2api:${ST2_VERSION:-3.3.0}
     restart: on-failure
